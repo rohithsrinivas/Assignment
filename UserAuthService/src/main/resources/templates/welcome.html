@@ -1,0 +1,82 @@
+<html>
+<h3>Please enter your credentials</h3>
+<script>
+	function validateLogin() {
+		var username = document.getElementById("loginForm").elements
+				.namedItem("username").value;
+		var password = document.getElementById("loginForm").elements
+				.namedItem("password").value;
+		var loginCheckUrl = validate + "/" + username + "/" + password;
+		$.ajax({
+			url : loginCheckUrl,
+			success : function(result) {
+				if (result == "Invalid Credentials") {
+					document.getElementById("message").data(
+							"Login failed please try again");
+				} else {
+					document.getElementById("message").data("Login succesful");
+				}
+			}
+		error: function(){
+			document.getElementById("message").data(
+			"some error occurred, please try again");
+		}
+		});
+		/* $.get(url,function (data){
+			var result = JSON.stringify(data);
+			if(result == "Invalid Credentials"){
+				document.getElementById("message").data("Login failed please try again");
+			}
+			else{
+				document.getElementById("message").data("Login succesful");
+			}
+		}); */
+	}
+
+	function registerUser() {
+
+	}
+</script>
+<form onSubmit="validateLogin()" name="loginForm">
+	Username : <input type="text" name="username" /> Password : <input
+		type="password" name="password" /> <input type="submit" value="Login" />
+</form>
+
+<div id="message"></div>
+
+<br>
+<br>
+
+<!-- <h4>If you are a new user, register here</h4>
+<form action="registerUser" name="registerForm">
+	Username : <input type="text" name="username" /> 
+	Password : <input type="password" name="password" />
+	Address : <input type="text" name="address"/>
+	<input type="submit" value = "Register"/>
+</form>
+ -->
+ 
+ <form method="POST" action="fileUpload" enctype="multipart/form-data">
+    <input type="file" name="file" /><br/><br/>
+    <input type="submit" value="Upload" />
+</form>
+
+
+<!-- <h1>List of all uploaded files</h1>
+
+	<script>
+		function displayAllFiles() {
+			$.get("/getAll", function(files) {
+				<c:forEach items="${files}" var="file">
+				var mapping = file.getName();
+			    <a href = mapping>${file}</a>
+			<c:forEach>
+			});
+		}
+	</script>
+
+	<form action="displayAllFiles()">
+		<input type="submit" value="Get All Uploaded Files" />
+	</form>
+ -->
+</html>
